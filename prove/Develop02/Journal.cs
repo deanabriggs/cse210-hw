@@ -17,7 +17,7 @@ public class Journal
         newEntry._entryText = Console.ReadLine();
     }
 
-    public static void DisplayAll()
+    public void DisplayAll()
     {
         foreach (Entry e in _entries)
         {
@@ -25,7 +25,7 @@ public class Journal
         }
     }
 
-    public static void SaveToFile(List<Entry> entries)
+    public void SaveToFile(List<Entry> entries)
     {
         string filename = "journal.txt";
         using (StreamWriter outputFile = new StreamWriter(filename))
@@ -39,8 +39,7 @@ public class Journal
         }
     }
 
-
-    public static void LoadFromFile()
+    public void LoadFromFile()
     {
         Console.WriteLine("Reading list from file...");
         List<Entry> entries = new List<Entry>();
