@@ -28,7 +28,7 @@ class Program
                 Console.Write("What is your guess? ");
                 string inputGuess = Console.ReadLine();
                 guess = int.Parse(inputGuess);
-                times = times + 1;
+                times += 1;
 
                 if (guess > magic)
                 {

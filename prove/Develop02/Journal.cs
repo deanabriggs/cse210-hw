@@ -8,13 +8,13 @@ public class Journal
 {
     // establish Entry list as a variable - initiating a new list item at the same time
     public List<Entry> _entries = new List<Entry>();
+    
 
     // establish the functions of the Journal class
-    public void AddEntry(Entry newEntry)
+    public void AddEntry(Entry newEntry)  //dataType followed by the parameter
     {
-        newEntry._date = "";
-        newEntry._promptText = "";
-        newEntry._entryText = Console.ReadLine();
+        _entries.Add(newEntry);
+        
     }
 
     public void DisplayAll()
@@ -48,12 +48,13 @@ public class Journal
         
         foreach (string line in lines)
         {
-            string[] parts = line.Split(" | ");
-
-            Entry newEntry = new Entry();
+            string[] parts = line.Split("|");
             newEntry._date = parts[0];
             newEntry._promptText = parts[1];
             newEntry._entryText = parts[2];
+
+            Entry newEntry = new Entry();
+
 
             entries.Add(newEntry);
         }

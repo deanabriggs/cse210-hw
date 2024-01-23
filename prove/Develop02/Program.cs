@@ -1,7 +1,7 @@
 using System;
-using System.Net;
+using System.Collections.Generic;
 
-class Program
+static class Program
 {
     static void Main(string[] args)
     {
@@ -20,27 +20,43 @@ class Program
             Console.Write("What would you like to do? ");
             userChoice = Console.ReadLine();
             
-            PromptGenerator p = new PromptGenerator();
-            Journal j = new Journal();
 
-
-            if (userChoice == "1")
+            if (userChoice == "1")  // Create a new prompt with date and Add a journal entry
             {
-                string prompt = p.GetRandomPrompt();
-                string entry = Console.ReadLine();
-            };
+                // Get the current Date and save to a variable (found using google Bard)
+                DateTime keepDate = DateTime.Today;
+                Console.WriteLine(keepDate);
 
-            if (userChoice == "2")
-            {
-                j.DisplayAll();
+                // Generate a Random Prompt and save to a variable
+                PromptGenerator prompt = new PromptGenerator();
+                string keepPrompt = (prompt.GetRandomPrompt());
+                Console.WriteLine(keepPrompt);
+
+                // Read the line for a text response and save to a variable
+                string keepEntry = Console.ReadLine();
+
+                // Use the AddEntry from the Journal to add the values to the Journal
+                Entry newEntry = new Entry();
+                
+                Journal myJournal = new Journal();
+                myJournal.AddEntry(newEntry);
+                newEntry._date = keepDate;
+                newEntry._promptText = keepPrompt;
+                newEntry._entryText = keepEntry;
+               
             }
 
-            if (userChoice == "3")
+            if (userChoice == "2")  // Display All Entries (the journal)
             {
-                j.LoadFromFile();
+                Console.WriteLine("");
             }
 
-            if (userChoice == "4")
+            if (userChoice == "3")  // Load Journal from file
+            {
+                Console.WriteLine("");
+            }
+
+            if (userChoice == "4")  // Save Journal to file
             {
                 Console.WriteLine("");
             }
