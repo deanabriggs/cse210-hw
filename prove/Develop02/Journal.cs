@@ -32,7 +32,7 @@ public class Journal
             
             foreach (Entry e in entries)
             {
-                outputFile.WriteLine($"{e._date} | {e._promptText} | {e._entryText}");
+                outputFile.WriteLine($"{e._date}|{e._promptText}|{e._entryText}");
             }
         }
     }
