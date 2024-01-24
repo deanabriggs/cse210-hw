@@ -8,13 +8,11 @@ public class Journal
 {
     // establish Entry list as a variable - initiating a new list item at the same time
     public List<Entry> _entries = new List<Entry>();
-    
 
     // establish the functions of the Journal class
     public void AddEntry(Entry newEntry)  //dataType followed by the parameter
     {
-        _entries.Add(newEntry);
-        
+        _entries.Add(newEntry);   
     }
 
     public void DisplayAll()
@@ -44,23 +42,18 @@ public class Journal
         Console.WriteLine("Reading list from file...");
         List<Entry> entries = new List<Entry>();
         string filename = "journal.txt";
-        string[] lines = System.IO.File.ReadAllLines(filename);
+        string[] lines = System.IO.File.ReadAllLines(filename);      
         
+        Entry newEntry = new Entry();        
         foreach (string line in lines)
         {
             string[] parts = line.Split("|");
-            newEntry._date = parts[0];
+            newEntry._date = DateTime.Parse(parts[0]);
             newEntry._promptText = parts[1];
             newEntry._entryText = parts[2];
-
-            Entry newEntry = new Entry();
-
-
             entries.Add(newEntry);
         }
-
         Console.WriteLine("File loaded.");
-
     }
 
 }

@@ -6,9 +6,9 @@ static class Program
     static void Main(string[] args)
     {
         Console.WriteLine("Welcome to the Journal Program!");
-    
-        string userChoice = "";
+        Journal myJournal = new Journal();
 
+        string userChoice = "";
         while (userChoice != "5")
         {
             Console.WriteLine("Please select one of the following choices:");
@@ -20,7 +20,6 @@ static class Program
             Console.Write("What would you like to do? ");
             userChoice = Console.ReadLine();
             
-
             if (userChoice == "1")  // Create a new prompt with date and Add a journal entry
             {
                 // Get the current Date and save to a variable (found using google Bard)
@@ -38,27 +37,25 @@ static class Program
                 // Use the AddEntry from the Journal to add the values to the Journal
                 Entry newEntry = new Entry();
                 
-                Journal myJournal = new Journal();
                 myJournal.AddEntry(newEntry);
                 newEntry._date = keepDate;
                 newEntry._promptText = keepPrompt;
                 newEntry._entryText = keepEntry;
-               
             }
 
             if (userChoice == "2")  // Display All Entries (the journal)
             {
-                Console.WriteLine("");
+                myJournal.DisplayAll();
             }
 
             if (userChoice == "3")  // Load Journal from file
             {
-                Console.WriteLine("");
+                myJournal.LoadFromFile();
             }
 
             if (userChoice == "4")  // Save Journal to file
             {
-                Console.WriteLine("");
+                myJournal.SaveToFile(myJournal._entries);
             }
         }
     } 
