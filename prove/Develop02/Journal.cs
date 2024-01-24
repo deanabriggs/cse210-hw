@@ -34,25 +34,28 @@ public class Journal
             {
                 outputFile.WriteLine($"{e._date}|{e._promptText}|{e._entryText}");
             }
+            Console.WriteLine("File saved.");
         }
     }
 
     public void LoadFromFile()
     {
-        Console.WriteLine("Reading list from file...");
-        List<Entry> entries = new List<Entry>();
+        _entries.Clear();
+        
         Console.Write("What is the filename? ");
         string filename = Console.ReadLine();
-        string[] lines = System.IO.File.ReadAllLines(filename);      
-        
-        Entry newEntry = new Entry();        
+        string[] lines = System.IO.File.ReadAllLines(filename); 
+
+        Console.WriteLine("Reading list from file...");     
+             
         foreach (string line in lines)
         {
+            Entry newEntry = new Entry();   
             string[] parts = line.Split("|");
             newEntry._date = DateTime.Parse(parts[0]);
             newEntry._promptText = parts[1];
             newEntry._entryText = parts[2];
-            entries.Add(newEntry);
+            _entries.Add(newEntry);
         }
         Console.WriteLine("File loaded.");
     }

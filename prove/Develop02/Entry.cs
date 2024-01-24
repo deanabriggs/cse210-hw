@@ -10,7 +10,8 @@ public class Entry
 
     public void Display()
     {
-        Console.WriteLine ($"\nDate: {_date} \nPrompt: {_promptText}");
+        string formatDate = _date.ToString("MM/dd/yyyy");
+        Console.WriteLine ($"\nDate: {formatDate} - Prompt: {_promptText}");
         Console.WriteLine (_entryText);
     }
 }

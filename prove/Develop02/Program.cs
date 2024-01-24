@@ -26,13 +26,12 @@ static class Program
             {
                 // Get the current Date and save to a variable (found using google Bard)
                 DateTime keepDate = DateTime.Today;
-                Console.WriteLine(keepDate);
 
                 // Generate a Random Prompt and save to a variable
                 PromptGenerator prompt = new PromptGenerator();
                 string keepPrompt = (prompt.GetRandomPrompt());
                 Console.WriteLine(keepPrompt);
-
+                Console.Write("> ");
 
                 // Read the line for a text response and save to a variable
                 string keepEntry = Console.ReadLine();
