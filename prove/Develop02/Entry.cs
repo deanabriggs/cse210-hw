@@ -11,6 +11,6 @@ public class Entry
     public void Display()
     {
         Console.WriteLine ($"\nDate: {_date} \nPrompt: {_promptText}");
-        Console.WriteLine ($"Response: {_entryText}");
+        Console.WriteLine (_entryText);
     }
 }

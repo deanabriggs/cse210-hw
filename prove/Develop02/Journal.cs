@@ -25,11 +25,11 @@ public class Journal
 
     public void SaveToFile(List<Entry> entries)
     {
-        string filename = "journal.txt";
+        Console.Write("What is the filename? ");
+        string filename = Console.ReadLine();
         using (StreamWriter outputFile = new StreamWriter(filename))
         {
             Console.WriteLine("Saving to file...");
-            
             foreach (Entry e in entries)
             {
                 outputFile.WriteLine($"{e._date}|{e._promptText}|{e._entryText}");
@@ -41,7 +41,8 @@ public class Journal
     {
         Console.WriteLine("Reading list from file...");
         List<Entry> entries = new List<Entry>();
-        string filename = "journal.txt";
+        Console.Write("What is the filename? ");
+        string filename = Console.ReadLine();
         string[] lines = System.IO.File.ReadAllLines(filename);      
         
         Entry newEntry = new Entry();        
