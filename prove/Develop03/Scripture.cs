@@ -1,4 +1,5 @@
 using System;
+using System.Reflection.Metadata;
 public class Scripture
 {
     // Variables
@@ -22,16 +23,19 @@ public class Scripture
     // Functions
     public void HideRandomWords(int numberToHide)
     {
-        int hideTimes = 0;
-        do
+        int listLength = _words.Count();
+        Random random = new Random();
+        for (int i = 0; i < numberToHide; i++)
         {
-            Random randomNumber = new Random();
-            int i = randomNumber.Next(0, _words.Count); // finds a random index number based on the number of words in the list
-            _words[i].Hide();                           // use the hide function to change the status (value) of the record
-            hideTimes += hideTimes;                     // counts how many times the loop has run
-
-        } while (hideTimes < numberToHide);   
+            int wordIndex = random.Next(0, listLength);
+            if(_words[wordIndex].IsHidden() && !IsCompletelyHidden())
+            {
+                i--;
+            }
+            _words[wordIndex].Hide();
+        }
     }
+    
 
     public string GetDisplayText()
     {
@@ -41,30 +45,25 @@ public class Scripture
             string each = _words[i].GetDisplayText();
             verse += each + " ";
         }
-        return $"{_reference} {verse}";
+        
+        return verse;
     }
 
     public bool IsCompletelyHidden()
     {
         bool hid = false;
-        int wordsCkd = 0;
         do
         {   
             for (int i = 0; i < _words.Count; i++)
             {
                 hid = _words[i].IsHidden();
-                wordsCkd += wordsCkd;
+                if (hid == false)
+                {
+                    return false;
+                    }
             }
-        } while (hid == false || wordsCkd < _words.Count);
-
-        if (hid == false)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        } while (hid == true);
+        return true;
     }
 
 }

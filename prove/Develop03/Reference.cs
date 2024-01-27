@@ -30,5 +30,6 @@ public class Reference
         {
             Console.Write($"-{_endVerse}");
         }
+        Console.Write(" ");
     }
 }

@@ -10,24 +10,28 @@ class Program
 
         // Builds the scripture object
         Scripture myScripture = new Scripture(myRef, verseText);
+        
+        // Determiners variables to quit the program
+        string quit;
 
-        // Determines how many words will be hidden at a time
-        myScripture.HideRandomWords(3);
-
-        string quit = "";
         do 
-        {  
+        {
             // Clears the console and displays the message
             Console.Clear();
-            myScripture.GetDisplayText();
+            myRef.GetDisplayText();
+            Console.WriteLine(myScripture.GetDisplayText());
             Console.WriteLine("\nPress enter to continue or type 'quit' to finish:");
             quit = Console.ReadLine();  // reads if user quit or hit enter
-            bool complete = myScripture.IsCompletelyHidden();
 
-            if (complete == true)
+            // Determines how many words will be hidden at a time
+            myScripture.HideRandomWords(3);
+
+            // Determines if all words are hidden to end the program
+            if (myScripture.IsCompletelyHidden() == true)
             {
-                break;
+                quit = "quit";
             }
+
         } while (quit != "quit");
     }
 }
