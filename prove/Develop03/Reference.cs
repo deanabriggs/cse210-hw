@@ -1,5 +1,4 @@
 using System;
-
 public class Reference
 {
     // Variables
@@ -10,9 +9,18 @@ public class Reference
 
     // Constructors
     public Reference(string book, int chapter, int startVerse)
-    {}
+    {
+        _book = book;
+        _chapter = chapter;
+        _startVerse = startVerse;
+    }
     public Reference(string book, int chapter, int startVerse, int endVerse)
-    {}
+    {
+        _book = book;
+        _chapter = chapter;
+        _startVerse = startVerse;
+        _endVerse = endVerse;
+    }
 
     // Functions
     public void GetDisplayText()
