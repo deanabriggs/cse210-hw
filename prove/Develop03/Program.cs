@@ -13,6 +13,9 @@ class Program
         
         // Determiners variables to quit the program
         string quit;
+        
+        Console.Write("How many words do you want to hide at a time? ");
+        int numHide = int.Parse(Console.ReadLine());
 
         do 
         {
@@ -24,13 +27,14 @@ class Program
             quit = Console.ReadLine();  // reads if user quit or hit enter
 
             // Determines how many words will be hidden at a time
-            myScripture.HideRandomWords(3);
+            myScripture.HideRandomWords(numHide);
 
         } while (quit != "quit" && !myScripture.IsCompletelyHidden());
 
         Console.Clear();
         Console.Write(myRef.GetDisplayText()+ " ");
         Console.WriteLine(myScripture.GetDisplayText());
+        Console.WriteLine();
     }
 
 }

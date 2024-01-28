@@ -1,7 +1,7 @@
 using System;
 using System.Data;
 using System.Reflection.Metadata;
-using System.Runtime.CompilerServices;
+
 public class Scripture
 {
     // Variables
