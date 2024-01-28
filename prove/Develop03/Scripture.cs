@@ -54,7 +54,6 @@ public class Scripture
     // Assisted by classmate Edward Schack
     public bool IsCompletelyHidden()                
     {
-        bool hidden = false;
         int verseLength = _words.Count();
         int hiddenCount = 0;
         foreach(Word word in _words){
@@ -65,9 +64,9 @@ public class Scripture
         }
         if(verseLength == hiddenCount)
         {
-            hidden = true;
+            return true;
         }
-        return hidden;
+        return false;
     }
 
 }
