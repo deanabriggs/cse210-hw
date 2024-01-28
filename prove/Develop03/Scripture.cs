@@ -1,5 +1,7 @@
 using System;
+using System.Data;
 using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 public class Scripture
 {
     // Variables
@@ -21,6 +23,8 @@ public class Scripture
     }
 
     // Functions
+
+    // Assisted by classmate Edward Schack
     public void HideRandomWords(int numberToHide)
     {
         int listLength = _words.Count();
@@ -35,7 +39,6 @@ public class Scripture
             _words[wordIndex].Hide();
         }
     }
-    
 
     public string GetDisplayText()
     {
@@ -44,26 +47,27 @@ public class Scripture
         {
             string each = _words[i].GetDisplayText();
             verse += each + " ";
-        }
-        
+        }        
         return verse;
     }
 
-    public bool IsCompletelyHidden()
+    // Assisted by classmate Edward Schack
+    public bool IsCompletelyHidden()                
     {
-        bool hid = false;
-        do
-        {   
-            for (int i = 0; i < _words.Count; i++)
+        bool hidden = false;
+        int verseLength = _words.Count();
+        int hiddenCount = 0;
+        foreach(Word word in _words){
+            if(word.GetDisplayText().Contains('_'))
             {
-                hid = _words[i].IsHidden();
-                if (hid == false)
-                {
-                    return false;
-                    }
+                hiddenCount ++;
             }
-        } while (hid == true);
-        return true;
+        }
+        if(verseLength == hiddenCount)
+        {
+            hidden = true;
+        }
+        return hidden;
     }
 
 }

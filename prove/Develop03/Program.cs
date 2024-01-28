@@ -18,7 +18,7 @@ class Program
         {
             // Clears the console and displays the message
             Console.Clear();
-            myRef.GetDisplayText();
+            Console.Write(myRef.GetDisplayText()+ " ");
             Console.WriteLine(myScripture.GetDisplayText());
             Console.WriteLine("\nPress enter to continue or type 'quit' to finish:");
             quit = Console.ReadLine();  // reads if user quit or hit enter
@@ -26,12 +26,11 @@ class Program
             // Determines how many words will be hidden at a time
             myScripture.HideRandomWords(3);
 
-            // Determines if all words are hidden to end the program
-            if (myScripture.IsCompletelyHidden() == true)
-            {
-                quit = "quit";
-            }
+        } while (quit != "quit" && !myScripture.IsCompletelyHidden());
 
-        } while (quit != "quit");
+        Console.Clear();
+        Console.Write(myRef.GetDisplayText()+ " ");
+        Console.WriteLine(myScripture.GetDisplayText());
     }
+
 }

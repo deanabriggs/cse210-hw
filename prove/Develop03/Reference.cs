@@ -23,13 +23,15 @@ public class Reference
     }
 
     // Functions
-    public void GetDisplayText()
+    public string GetDisplayText()
     {
-        Console.Write($"{_book} {_chapter}:{_startVerse}");
         if (_endVerse > 0)
         {
-            Console.Write($"-{_endVerse}");
+            return $"{_book} {_chapter}:{_startVerse}-{_endVerse}";
         }
-        Console.Write(" ");
+        else 
+        {
+            return $"{_book} {_chapter}:{_startVerse}";
+        }
     }
 }
