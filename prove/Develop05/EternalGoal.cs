@@ -11,13 +11,13 @@ public class EternalGoal : Goal
     public override void RecordEvent()
     {}
 
-    public override bool IsComplete()
+    public override bool IsComplete()                   // DONE (should always return false)
     {
         return false;
     }
 
-    public override string GetStringRepresentation()
+    public override string GetStringRepresentation()    // DONE, but check format
     {
-        return "";
+        return $"Checklist Goal:|{_shortName}|{_description}|{_points}";
     }
 }

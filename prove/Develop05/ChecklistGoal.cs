@@ -10,24 +10,36 @@ public class ChecklistGoal : Goal
     {
         _target = target;
         _bonus = bonus;
+        _amountCompleted = 0;
     }
 
     // Functions / Methods
     public override void RecordEvent()
-    {}
-
-    public override bool IsComplete()
     {
-        return false;
+
     }
 
-    public override string GetDetailsString()
+    public override bool IsComplete()           // DONE
     {
-        return "";
+        if (_amountCompleted < _target)
+            return false;
+        else
+            return true;
     }
 
-    public override string GetStringRepresentation()
+    public override string GetDetailsString()  // DONE, but check format
     {
-        return "";
+        string status;
+        if (IsComplete() == true)
+            status = "X";
+        else
+            status = " ";
+
+        return $"[{status}] {_shortName}: {_description} - Progress: {_amountCompleted}\\{_target}";
+    }
+
+    public override string GetStringRepresentation()    // DONE, but check format
+    {
+        return $"Checklist Goal:|{_shortName}|{_description}|{_points}|{_amountCompleted}|{_target}|{_bonus}";
     }
 }

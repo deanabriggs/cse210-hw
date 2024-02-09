@@ -14,13 +14,20 @@ public class SimpleGoal : Goal
 
     // Functions / Methods
     public override void RecordEvent()
-    {}
-    public override bool IsComplete()
     {
-        return false;
+
     }
-    public override string GetStringRepresentation()
+
+    public override bool IsComplete()                   // DONE
     {
-        return "";
+        if (_isComplete == true)
+            return true;
+        else
+            return false;
+    }
+
+    public override string GetStringRepresentation()    // DONE, but check format
+    {
+        return $"Checklist Goal:|{_shortName}|{_description}|{_points}|{_isComplete}";
     }
 }
