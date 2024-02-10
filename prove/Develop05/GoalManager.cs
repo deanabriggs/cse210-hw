@@ -123,9 +123,10 @@ public class GoalManager
         Console.Write("Which goal did you accomplish? ");
         int userChoice = int.Parse(Console.ReadLine())-1;  // finds the index for the goal selected
         _score += _goals[userChoice].RecordEvent();
+        celebrate();
     }
 
-    public void SaveGoals()
+    public void SaveGoals()             // DONE
     {
         Console.Write("What is the filename for the goal file? ");
         string fileName = Console.ReadLine();
@@ -140,7 +141,7 @@ public class GoalManager
         Console.WriteLine("\nYour file has been saved.");
     }
 
-    public void LoadGoals()
+    public void LoadGoals()             // DONE
     {
         Console.Write("What is the filename for the goal file? ");
         string fileName = Console.ReadLine();
@@ -194,4 +195,68 @@ public class GoalManager
 
         return (name, description, points);
     }
+
+    static void celebrate()
+    {
+        List<string> awards = new List<string>()
+        {
+            "Good Job!",
+            "Amazing!",
+            "Way to Go!",
+            "You did it!",
+            "Excellent!",
+            "Keep it up!",
+            "Wow!",
+            "That's the Spirit!"
+        };
+        
+        Random randomNum = new Random();
+        int number = randomNum.Next(0, awards.Count);
+        string praise = awards[number];
+
+        
+        Console.Clear();
+        Thread.Sleep(200);
+        
+        Console.WriteLine($"\n\n\n\n                            {praise}");
+        Thread.Sleep(500);
+        Console.Clear();
+        
+        Console.WriteLine($"\n\n            {praise}");
+        Thread.Sleep(500);
+        Console.Clear();
+        
+        Console.WriteLine($"\n\n\n\n\n\n\n                                {praise}");
+        Thread.Sleep(500);
+        Console.Clear();
+        
+        Console.WriteLine($"\n                                              {praise}");
+        Thread.Sleep(500);
+        Console.Clear();
+        
+        Console.WriteLine($"\n\n\n\n\n\n                                        {praise}");
+        Thread.Sleep(500);
+        Console.Clear();
+        
+        Console.WriteLine($"\n\n\n\n\n              {praise}");
+        Thread.Sleep(500);
+        Console.Clear();
+        
+        Console.WriteLine($"\n\n\n                                  {praise}");
+        Thread.Sleep(500);
+        Console.Clear();
+        
+        Console.WriteLine($"\n\n\n\n\n\n\n\n                    {praise}");
+        Thread.Sleep(500);
+        Console.Clear();
+        
+        Console.WriteLine($"                        {praise}");
+        Thread.Sleep(500);
+        Console.Clear();
+        Thread.Sleep(200);
+        Console.WriteLine($"\n\n\n\n                            {praise.ToUpper()}");
+        Thread.Sleep(1000);
+        Console.Clear();
+    }
+
 }

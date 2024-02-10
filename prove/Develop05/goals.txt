@@ -1,5 +1,4 @@
-2420
+360
+SimpleGoal:homework|finsh this assignment|200|True
+ChecklistGoal:laundry|help dad wash stuff|100|1|3|500
 EternalGoal:pray|other than meal times|20
-SimpleGoal:homework|complete this assignment|1000|True
-ChecklistGoal:temple|perform an ordinance|250|4|4|400
-SimpleGoal:more homework|test and perfect my code, maybe add a feature|100|False
