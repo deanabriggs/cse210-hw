@@ -4,20 +4,22 @@ public class EternalGoal : Goal
     //none
 
     // Constructors
-    EternalGoal(string name, string description, int points) : base(name, description, points)
+    public EternalGoal(string name, string description, int points) : base(name, description, points)
     {}
 
     // Functions / Methods
-    public override void RecordEvent()
-    {}
+    public override int RecordEvent()                   // DONE, returns point value of event
+    {
+        return _points;
+    }
 
     public override bool IsComplete()                   // DONE (should always return false)
     {
         return false;
     }
 
-    public override string GetStringRepresentation()    // DONE, but check format
+    public override string GetStringRepresentation()    // DONE, returns string to save to file
     {
-        return $"Checklist Goal:|{_shortName}|{_description}|{_points}";
+        return $"EternalGoal:{_shortName}|{_description}|{_points}";
     }
 }

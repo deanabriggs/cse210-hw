@@ -6,20 +6,28 @@ public class ChecklistGoal : Goal
     private int _bonus;
 
     // Constructors
-    ChecklistGoal(string name, string description, int points, int target, int bonus) : base(name, description, points)
+    public ChecklistGoal(string name, string description, int points, int target, int bonus, int completed = 0) : base(name, description, points)
     {
         _target = target;
         _bonus = bonus;
-        _amountCompleted = 0;
+        _amountCompleted = completed;
     }
 
     // Functions / Methods
-    public override void RecordEvent()
+    public override int RecordEvent()          // DONE, adds to the number completed, determines if target has been reached, returns points for event
     {
-
+        _amountCompleted += 1;
+        if (_amountCompleted < _target)
+        {
+            return _points;
+        }
+        else
+        {
+            return _points + _bonus;
+        }
     }
 
-    public override bool IsComplete()           // DONE
+    public override bool IsComplete()          // DONE, returns status
     {
         if (_amountCompleted < _target)
             return false;
@@ -27,7 +35,7 @@ public class ChecklistGoal : Goal
             return true;
     }
 
-    public override string GetDetailsString()  // DONE, but check format
+    public override string GetDetailsString()  // DONE, returns printable string of Detail
     {
         string status;
         if (IsComplete() == true)
@@ -35,11 +43,11 @@ public class ChecklistGoal : Goal
         else
             status = " ";
 
-        return $"[{status}] {_shortName}: {_description} - Progress: {_amountCompleted}\\{_target}";
+        return $"[{status}] {_shortName} ({_description}) -- Currently completed: {_amountCompleted}/{_target}";
     }
 
-    public override string GetStringRepresentation()    // DONE, but check format
+    public override string GetStringRepresentation()    // DONE, returns string to save to file
     {
-        return $"Checklist Goal:|{_shortName}|{_description}|{_points}|{_amountCompleted}|{_target}|{_bonus}";
+        return $"ChecklistGoal:{_shortName}|{_description}|{_points}|{_amountCompleted}|{_target}|{_bonus}";
     }
 }

@@ -29,7 +29,7 @@ static class Program
 
                 // Generate a Random Prompt and save to a variable
                 PromptGenerator prompt = new PromptGenerator();
-                string keepPrompt = (prompt.GetRandomPrompt());
+                string keepPrompt = prompt.GetRandomPrompt();
                 Console.WriteLine(keepPrompt);
                 Console.Write("> ");
 

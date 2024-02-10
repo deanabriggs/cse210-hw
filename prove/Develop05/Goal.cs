@@ -14,7 +14,11 @@ public abstract class Goal
     }
 
     // Functions / Methods
-    public abstract void RecordEvent();
+    public string getName()
+    {
+        return _shortName;
+    }
+    public abstract int RecordEvent();
 
     public abstract bool IsComplete();                      // DONE
 
@@ -26,7 +30,7 @@ public abstract class Goal
         else
             status = " ";
 
-        return $"[{status}] {_shortName}: {_description}";
+        return $"[{status}] {_shortName} ({_description})";
     }
 
     public abstract string GetStringRepresentation();       // DONE

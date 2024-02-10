@@ -7,18 +7,19 @@ public class SimpleGoal : Goal
     private bool _isComplete;
 
     // Constructors
-    public SimpleGoal(string name, string description, int points) : base(name, description, points)
+    public SimpleGoal(string name, string description, int points, bool complete = false) : base(name, description, points)
     {
-        _isComplete = false;
+        _isComplete = complete;
     }
 
     // Functions / Methods
-    public override void RecordEvent()
+    public override int RecordEvent()        // DONE, Sets the status to true, returns associated point value                  
     {
-
+        _isComplete = true;
+        return _points;
     }
 
-    public override bool IsComplete()                   // DONE
+    public override bool IsComplete()        // DONE, returns status
     {
         if (_isComplete == true)
             return true;
@@ -26,8 +27,8 @@ public class SimpleGoal : Goal
             return false;
     }
 
-    public override string GetStringRepresentation()    // DONE, but check format
+    public override string GetStringRepresentation()    // DONE, returns string to save to file
     {
-        return $"Checklist Goal:|{_shortName}|{_description}|{_points}|{_isComplete}";
+        return $"SimpleGoal:{_shortName}|{_description}|{_points}|{_isComplete}";
     }
 }
