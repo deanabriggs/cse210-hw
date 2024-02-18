@@ -22,14 +22,15 @@ public class GoalManager
             Console.WriteLine();
             DisplayPlayerInfo();
 
-            Console.WriteLine("Menu Options:");
-            Console.WriteLine(" 1. Create New Goal");
-            Console.WriteLine(" 2. List Goals");
-            Console.WriteLine(" 3. Save Goals");
-            Console.WriteLine(" 4. Load Goals");
-            Console.WriteLine(" 5. Record Event");
-            Console.WriteLine(" 6. Quit");
-            Console.Write("Select a choice from the menu: ");
+            Console.Write(
+@"Menu Options:
+  1. Create New Goal
+  2. List Goals
+  3. Save Goals
+  4. Load Goals
+  5. Record Event
+  6. Quit
+Select a choice from the menu: ");
             userInput = Console.ReadLine();
 
             if (userInput == "1")
@@ -82,12 +83,13 @@ public class GoalManager
 
     public void CreateGoal()            // DONE
     {
-        Console.WriteLine("\nThe types of Goals are:");
-        Console.WriteLine(" 1. Simple Goal");
-        Console.WriteLine(" 2. Eternal Goal");
-        Console.WriteLine(" 3. Checklist Goal");
-        Console.WriteLine("Press 'enter' to return to the previous menu.");
-        Console.Write("Which type of goal would you like to create? ");
+        Console.Write(
+@"The types of Goals are:
+  1. Simple Goal
+  2. Eternal Goal
+  3. Checklist Goal
+Press 'enter' to return to the previous menu.
+Which type of goal would you like to create? ");
         string userChoice = Console.ReadLine();
         Console.WriteLine();
 

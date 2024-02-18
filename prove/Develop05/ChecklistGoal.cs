@@ -42,7 +42,6 @@ public class ChecklistGoal : Goal
             status = "X";
         else
             status = " ";
-
         return $"[{status}] {_shortName} ({_description}) -- Currently completed: {_amountCompleted}/{_target}";
     }
 

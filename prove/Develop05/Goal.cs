@@ -29,7 +29,6 @@ public abstract class Goal
             status = "X";
         else
             status = " ";
-
         return $"[{status}] {_shortName} ({_description})";
     }
 
