@@ -11,20 +11,24 @@ public class Availability
         _availableTime = time;
     }
 
-    public void AddAvailability(int day, int time)
+    public int GetDay()
     {
-        _day = day;
-        _availableTime = time;
+        return _day;
     }
 
-    public void ChangeAvailability(int day, int time)
-    {
-        _day = day;
-        _availableTime = time;
+    public void SetTime(int newTime)
+    {       
+        _availableTime = newTime;
     }
 
     public string GetAvailability()
     {
-        return $"{_day} - {_availableTime} minutes";
+        DayOfWeek thisDay = (DayOfWeek)_day;
+        return $"{thisDay} - {_availableTime} minutes";
+    }
+
+    public string StringRepresentation()
+    {
+        return $"Availabilty:{_day}|{_availableTime}";
     }
 }
