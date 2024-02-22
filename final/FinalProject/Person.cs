@@ -39,7 +39,7 @@ public class Person
             Availability day = new Availability(i, minutes);
             newAvailable.Add(day);
         }
-        Console.WriteLine($"Chore availability for has been set for {minutes} minutes each day.\n");
+        Console.WriteLine($"\nChore availability for has been set for {minutes} minutes each day.");
         return newAvailable;
     }
 
@@ -96,7 +96,7 @@ public class Person
         Console.Write("Change availability (y/n)? ");
         string choice = Console.ReadLine();
 
-        while (choice == "y") {
+        while (choice != "n") {
             DisplayAvailability();
             ChangeTimeMenu();
             Console.Write("Do you want to change another day?");

@@ -17,90 +17,172 @@ public class ChoreMgmt
         return dateList;
     }
 
-    public void MainMenu()
+    public void RunProgram()
     {
-        string userInput = "";
-        while (userInput != "9")
+        string entityChoice = DisplayMainMenu();
+        do
         {
-            DisplayMainMenu();
-            userInput = Console.ReadLine();
-
-            if (userInput == "1")               // DONE    Add/Edit/View a person
+            (string entity, string action) = DisplaySecondMenu(entityChoice);
+            do
             {
-                Console.Write("\nWhich would you like to do?\n  1. Add \n  2. View \n  3. Edit \nSelect a choice from the menu: ");
-                string userChoice = Console.ReadLine();
-                    if (userChoice == "1")              // Add persosn
+                if (entity == "People")
+                do
+                {
+                    if (action == "Add")
+                    do                                                      // Add person            
                     {
                         Console.Clear();
                         _people.Add(new Person());
-                    }
-                    else if (userChoice == "2")         // View person
+                        action = AskToContinue(action, entity);
+
+                    } while (action == "Add");
+
+                    else if (action == "View" || action == "Edit")
+                    do                            // View and/or Edit person
                     {
-                        Console.Clear();
-                        Console.WriteLine("These are the available people to view: ");
+                        Console.WriteLine($"These are the available {entity} to {action}: ");
                         foreach(Person item in _people)
                         {
                             Console.WriteLine($"  {item.GetName()}");
                         }
-                        Console.Write("\nWho whould you like to VIEW: ");
+                        Console.Write($"\nEnter the 'name' to {action}: ");
                         string nameEntered = Console.ReadLine();
-                        Console.Clear();
                         
                         foreach(Person item in _people)
                         {
                             if (nameEntered.ToLower() == item.GetName().ToLower())
                             {
-                                item.DisplayAvailability();
-                            }
-                        }
-                        Console.WriteLine();
-                    }
-                    else if (userChoice == "3")         // Edit person
-                    {
-                        Console.Clear();
-                        Console.WriteLine("These are the available people to edit: ");
-                        foreach(Person item in _people)
-                        {
-                            Console.WriteLine($"  {item.GetName()}");
-                        }
-                        Console.Write("\nWho whould you like to EDIT: ");
-                        string nameEntered = Console.ReadLine();
-                        Console.Clear();
-                        
-                        foreach(Person item in _people)
-                        {
-                            if (nameEntered.ToLower() == item.GetName().ToLower())
-                            {
-                                string change = "y";
-                                while (change == "y")
+                                if (action == "View")
                                 {
+                                    Console.Clear();
                                     item.DisplayAvailability();
-                                    Console.WriteLine();
-                                    item.ChangeTimeMenu();
-                                    Console.Write("\nWould you like to make another change? (y/n) ");
-                                    change = Console.ReadLine();
+                                    action = AskToContinue(action, entity);
+                                } 
+                                
+                                else if (action == "Edit")                                     // Edit person
+                                {
+                                    string change = "y";
+                                    while (change == "y")
+                                    {
+                                        Console.Clear();
+                                        item.EditPerson();
+                                        action = AskToContinue(action, entity);
+                                    }
                                 }
-                            }
+                            }                    
                         }
+                    } while (action == "View" || action == "Edit");
+
+                    else if (entity == "People" && action == "Save")                                    // Save person
+                    {
+                        action = AskToContinue(action, entity);
                     }
-            }
-        }
+
+                    else if (entity == "People" && action == "Load")                                    // Load person
+                    {
+                        action = AskToContinue(action, entity);
+                    }
+
+                    else
+                    {entity = "Exit";}                    
+
+                } while (entity == "People");
+
+
+                else if (entity == "Chores" && action == "Add")                                     // Add chores
+                {
+                    action = AskToContinue(action, entity);
+                }
+                
+                else if (entity == "Chores" && (action == "View" || action == "Edit"))              // View and/or Edit chores
+                {
+                    action = AskToContinue(action, entity);
+                }
+                
+                else if (entity == "Chores" && action == "Save")                                    // Save chores
+                {
+                    action = AskToContinue(action, entity);
+                }
+                
+                else if (entity == "Chores" && action == "Load")                                    // Load chores
+                {
+                    action = AskToContinue(action, entity);
+                }
+
+
+                else if (entity == "Assignments" && action == "Add")                                // Add assignments
+                {
+                    action = AskToContinue(action, entity);
+                }
+                
+                else if (entity == "Assignments" && (action == "View" || action == "Edit"))         // View and/or Edit assignments
+                {
+                    action = AskToContinue(action, entity);
+                }
+                
+                else if (entity == "Assignments" && action == "Save")                               // Save assignments
+                {
+                    action = AskToContinue(action, entity);
+                }
+                
+                else if (entity == "Assignments" && action == "Load")                               // Load assignments
+                {
+                    action = AskToContinue(action, entity);
+                }
+                
+            } while (action != "Exit");
+
+        entityChoice = "";
+        } while (entityChoice != "Exit");
     }
-    public void DisplayMainMenu()
+
+    public string DisplayMainMenu()
     {
         Console.Write(
 @"
-Menu Options:
-  1. Add/View/Edit a person
-  2. Add/View/Edit a chore
-  3. Assign Chores
-  4. Save your chore list
-  5. Load an existing chore list
-  6. View Chore List
-  7. View Unassigned Chores
-  8. View Time Availability
-  9. Exit the program
-Select a choice from the menu: ");
+Choose an entity:
+  1. People
+  2. Chores
+  3. Assignments
+  4. Exit
+Select a choice (1-4): ");
+        string entity = Console.ReadLine();
+        if (entity == "1") {entity = "People";}
+        else if (entity == "2") {entity = "Chores";}
+        else if (entity == "3") {entity = "Assignments";}
+        else if (entity == "4") {entity = "Exit";}
+        return entity;
+    }
+
+    public (string entity, string action) DisplaySecondMenu(string entity)
+    {      
+        Console.Write(
+@$"
+What would you like to do with {entity}:
+  1. Add
+  2. View
+  3. Edit
+  4. Save
+  5. Load
+  6. Exit
+Select a choice (1-6): ");
+        string action = Console.ReadLine();
+        if (action == "1") {action = "Add";}
+        else if (action == "2") {action = "View";}
+        else if (action == "3") {action = "Edit";}
+        else if (action == "4") {action = "Save";}
+        else if (action == "5") {action = "Load";}
+        else if (action == "6") {action = "Exit";}
+        return (entity, action);
+    }
+
+    static string AskToContinue (string action, string entity)
+    {
+        Console.Write($"Do you want to continue to {action} {entity} (y/n)? ");
+        if (Console.ReadLine().ToLower() == "n") 
+            {return "Exit";}
+        else 
+            {return action;}
     }
 
     public void DisplayPeople()
@@ -147,4 +229,6 @@ Select a choice from the menu: ");
     {
 
     }
+
+
 }
