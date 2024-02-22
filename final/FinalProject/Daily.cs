@@ -4,13 +4,16 @@ public class Daily : Chores
 {
     private bool _am;
 
-    Daily(string name, string desc, int time, int age, bool am=false) : base(name, desc, time, age)
+    public Daily() : base()
     {
-        _am = am;
+        Console.Write("Does this chore have to be done in the morning? (y/n): ");
+        if (Console.ReadLine().ToLower() == "y")
+        {_am = true;}
+        else {_am = false;}
     }
-    Daily(string name, string desc, int time, int age, bool am=false, bool everyone=false, int people=1) : base(name, desc, time, age, everyone, people)
+    public Daily(string name, string desc, int time, int age, bool everyone=false, int people=1) : base(name, desc, time, age, everyone, people)
     {
-        _am = am;
+        _am = false;
     }
 
     public override string ChoreDetails()
@@ -20,20 +23,6 @@ public class Daily : Chores
 
     public override string StringRepresentation()
     {
-        return "";
+        return $"Daily:{_choreName}|{_description}|{_time}|{_minAge}|{_everyone}|{_numOfPeople}|{_am}";
     }
-
-    public override List<int> DefineDays()
-    {
-        List<int> dayList = new List<int>();
-        dayList.Add(0);
-        dayList.Add(1);
-        dayList.Add(2);
-        dayList.Add(3);
-        dayList.Add(4);
-        dayList.Add(5);
-        dayList.Add(6);
-        return dayList;
-    }
-
 }

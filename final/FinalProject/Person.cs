@@ -43,13 +43,9 @@ public class Person
         return newAvailable;
     }
 
-    public void GetAvailabilityByDate(DateOnly start, DateOnly end)  // will need to edited to return correct info
-    {
-        
-    }
-
     public void DisplayAvailability()                       // DONE
     {
+        Console.Clear();
         Console.WriteLine($"{_name} - {_dob}");
         int i = 0;
         foreach (Availability item in _available)
@@ -59,33 +55,33 @@ public class Person
         }
     }
 
-    public string StringRepresentation()                    // DONE  - CHECK how availability is returned
+    public string StringRepresentation()                            // DONE  - CHECK how availability is returned
     {
         return $"Person:{_name}|{_dob}|{_available}";
     }
 
-    public string GetName()                               // DONE
+
+    public string GetName()                                         // DONE
     {
         return _name;
     }
     
-    public void DeletePerson()                              // DONE
+    public void DeletePerson()                                      // DONE
     {
         _name = null;
         _dob = default;
         _available = null;
     }
 
-    public void EditPerson()                                // DONE  - resets values based on new inputs
+    public void EditPerson()                                        // DONE  - resets values based on new inputs
     {
-        Console.Write("Change name (y/n)? ");
+        Console.Write($"Change name for '{_name}' (y/n)? ");
         if (Console.ReadLine() == "y") {
             Console.Write("Enter the new name: ");
-            string name = Console.ReadLine();
-            _name = name;
+            _name = Console.ReadLine();
         }
         
-        Console.Write("Change Date-Of-Birth (y/n)? ");
+        Console.Write($"Change Date-Of-Birth from '{_dob}' (y/n)? ");
         if (Console.ReadLine() == "y") {
             Console.Write("Enter the new DOB: ");
             string enteredDOB = Console.ReadLine();
@@ -136,4 +132,5 @@ public class Person
         
     }
 
+    // public void GetDateAvailability(DateOnly start, DateOnly end){}  // will need to edited to return correct info
 }

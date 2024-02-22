@@ -4,11 +4,11 @@ public class Weekly : Chores
 {
     private int _day;
 
-    Weekly(string name, string desc, int time, int age, int day) : base(name, desc, time, age)
+    public Weekly() : base()
     {
-        _day = day;
+        _day = MenuWeekdayValue();
     }
-    Weekly(string name, string desc, int time, int age, int day, bool everyone, int people) : base(name, desc, time, age, everyone, people)
+    public Weekly(string name, string desc, int time, int age, int day, bool everyone, int people) : base(name, desc, time, age, everyone, people)
     {
         _day = day;
     }
@@ -18,16 +18,34 @@ public class Weekly : Chores
         return "";
     }
 
-    public override string StringRepresentation()
+    public override string DisplayChores()
     {
-        return "";
+        return base.DisplayChores() + $" | on {(DayOfWeek)_day}";
     }
 
-    public override List<int> DefineDays()
+    public override string StringRepresentation()
     {
-        List<int> dayList = new List<int>();
-        dayList.Add(_day);
-        return dayList;
+        return $"Daily:{_choreName}|{_description}|{_time}|{_minAge}|{_everyone}|{_numOfPeople}|{_day}";
     }
+
+    public int MenuWeekdayValue()
+    {
+Console.WriteLine(
+@"What day should this be worked? 
+  1. Monday
+  2. Tuesday
+  3. Wednesday
+  4. Thursday
+  5. Friday
+  6. Saturday
+  7. Sunday
+Enter option (1-7): ");
+        int choice = int.Parse(Console.ReadLine());
+        if (choice == 7) {_day = 0;}
+        else {_day = choice;}
+
+        return choice;
+    }
+
 
 }

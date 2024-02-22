@@ -3,6 +3,8 @@ public class Availability
     private int _day;
     private int _availableTime;
 
+    // private List<DateOnly> _availableDates;   - may add later to use with date ranges
+
     public Availability()
     {}
     public Availability(int day, int time)
