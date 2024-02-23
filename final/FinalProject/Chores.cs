@@ -13,19 +13,19 @@ public abstract class Chores
 
     protected Chores()
     {
-        Console.Write("Enter chore NAME: ");
+        Console.Write("NAME of chore: ");
         _choreName = Console.ReadLine();
 
-        Console.Write("Enter a DESCRIPTION: ");
+        Console.Write("DESCRIPTION: ");
         _description = Console.ReadLine();
 
-        Console.Write("Enter TIME needed to complete (in minutes): ");
+        Console.Write("TIME to complete (in minutes): ");
         _time = int.Parse(Console.ReadLine());
 
-        Console.Write("Enter the minimum AGE required for the chore: ");
+        Console.Write("AGE minimum to do: ");
         _minAge = int.Parse(Console.ReadLine());
 
-        Console.Write("Should EVERYONE individually do this chore? (y/n)");
+        Console.Write("EVERYONE individually completes? (y/n): ");
         if (Console.ReadLine().ToLower() == "y")
             {
                 _everyone = true;
@@ -34,14 +34,14 @@ public abstract class Chores
         else 
             {
                 _everyone = false;
-                Console.Write("Should this be worked by MORE THAN 1 person at a time? (y/n)");
+                Console.Write("MORE THAN 1 person to do? (y/n): ");
                     if (Console.ReadLine().ToLower() == "n")
                         {
                             _numOfPeople = 1;
                         }
                     else 
                         {
-                            Console.Write("How MANY people should work on this together? ");
+                            Console.Write("HOW MANY working together? ");
                             _numOfPeople = int.Parse(Console.ReadLine());
                         }
             }
@@ -75,33 +75,28 @@ public abstract class Chores
     {
         Console.Write($"Change name for '{_choreName}' (y/n)? ");
         if (Console.ReadLine() == "y") {
-            Console.Write("Enter the new name: ");
+            Console.Write("New name: ");
             _choreName = Console.ReadLine();
         }
 
         Console.Write($"Change description '{_description}' (y/n)? ");
         if (Console.ReadLine() == "y") {
-            Console.Write("Enter the new description: ");
+            Console.Write("New description: ");
             _description = Console.ReadLine();
         }
 
         Console.Write($"Change time from '{_time} minutes' (y/n)? ");
         if (Console.ReadLine() == "y") {
-            Console.Write("Enter the new description: ");
+            Console.Write("New time: ");
             _time = int.Parse(Console.ReadLine());
         }        
 
         Console.Write($"Change minimum age '{_minAge} years old' (y/n)? ");
         if (Console.ReadLine() == "y") {
-            Console.Write("Enter the new description: ");
+            Console.Write("New min Age: ");
             _minAge = int.Parse(Console.ReadLine());
         }
 
-        Console.Write($"To change  '{_minAge} years old' (y/n)? ");
-        if (Console.ReadLine() == "y") {
-            Console.Write("Enter the new description: ");
-            _minAge = int.Parse(Console.ReadLine());
-        }
 
         Console.Write("Should EVERYONE individually do this chore? (y/n)");
         if (Console.ReadLine().ToLower() == "y")

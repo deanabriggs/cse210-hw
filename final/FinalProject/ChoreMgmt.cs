@@ -1,3 +1,6 @@
+using System.ComponentModel.DataAnnotations;
+using System.Formats.Asn1;
+using System.Reflection.Metadata;
 using System.Xml.Serialization;
 
 public class ChoreMgmt
@@ -21,168 +24,179 @@ public class ChoreMgmt
 
     public void RunProgram()
     {
-        
-        string entityChoice = DisplayMainMenu();
-        while (entityChoice != "Exit")
+        string entityOrExit = DisplayMainMenu();
+        do
         {
-            (string entity, string action) = DisplaySecondMenu(entityChoice);
-            entityChoice = entity;
-            while (action != "Return")
+            (string entity, string action) = DisplaySecondMenu(entityOrExit);
+            entityOrExit = entity;                                           
+            while (entity != "Exit")                       
             {
-                if (entity == "People")
-                    while (entity == "People")
+                while (entity == "People")
+                {
+                    while (action == "Add")                                   // Add person            
                     {
-                        if (action == "Add")
-                            while (action == "Add")                                                      // Add person            
-                            {
-                                Console.Clear();
-                                _people.Add(new Person());
-                                action = AskToContinue(action, entity);
-                            }
+                        Console.Clear();
+                        _people.Add(new Person());
 
-                        else if (action == "View" || action == "Edit")
-                            while (action == "View" || action == "Edit")                           // View and/or Edit person
+                        (entity, action) = AskToContinue(entity, action);
+                    }
+
+                    while (action == "View" || action == "Edit")              // View and/or Edit person
+                    {
+                        Console.WriteLine($"These are the available {entity} to {action}: ");
+                        foreach(Person item in _people)
+                        {
+                            Console.WriteLine($"  {item.GetName()}");
+                        }
+                        Console.Write($"\nEnter the 'name' to {action}: ");
+                        string nameEntered = Console.ReadLine();
+                        
+                        foreach(Person item in _people)
+                        {
+                            if (nameEntered.ToLower() == item.GetName().ToLower())
                             {
-                                Console.WriteLine($"These are the available {entity} to {action}: ");
-                                foreach(Person item in _people)
+                                while (action == "View")
                                 {
-                                    Console.WriteLine($"  {item.GetName()}");
-                                }
-                                Console.Write($"\nEnter the 'name' to {action}: ");
-                                string nameEntered = Console.ReadLine();
+                                    Console.Clear();
+                                    item.DisplayAvailability();
+                                    (entity, action) = AskToContinue(entity, action);
+                                } 
                                 
-                                foreach(Person item in _people)
-                                {
-                                    if (nameEntered.ToLower() == item.GetName().ToLower())
-                                    {
-                                        if (action == "View")
-                                        {
-                                            Console.Clear();
-                                            item.DisplayAvailability();
-                                            action = AskToContinue(action, entity);
-                                        } 
-                                        
-                                        else if (action == "Edit")                                     // Edit person
-                                            while (action != "Return")
-                                            {                                        
-                                                Console.Clear();
-                                                item.EditPerson();
-                                                action = AskToContinue(action, item.GetName());                                        
-                                            }
-                                    }                    
+                                while (action == "Edit")                                     // Edit person
+                                {                                        
+                                    Console.Clear();
+                                    item.EditPerson();
+                                    (entity, action) = AskToContinue(entity, action);                                       
                                 }
-                            }
-
-                        else if (action == "Save")
-                            while (action == "Save")                                     // Save person
-                            {
-                                action = AskToContinue(action, entity);
-                            }
-
-                        else if (action == "Load") 
-                            while (action == "Load")                                  // Load person
-                            {
-                                action = AskToContinue(action, entity);
-                            }
-
+                            }                  
+                        }
                         (entity, action) = DisplaySecondMenu(entity);
-                        entityChoice = entity;                   
                     }
 
-                else if (entity == "Chores")
-                    while (entity == "Chores")
+                    while (action == "Save")                                  // Save person
                     {
-                        if (action == "Add")
-                            while (action == "Add")                                                      // Add person            
-                            {
-                                Console.Clear();
-                                string choreType = $"{ChoreMenu()}";
-                                if (choreType == "daily")
-                                {
-                                    _theChores.Add(new Daily());
-                                }
-                                else if (choreType == "somedays")
-                                {
-                                    _theChores.Add(new SomeDays());
-                                }
-                                else if (choreType == "weekly")
-                                {
-                                    _theChores.Add(new Weekly());
-                                }
-
-                                action = AskToContinue(action, entity);
-                            }
-
-                        else if (action == "View" || action == "Edit")
-                            while (action == "View" || action == "Edit")                           // View and/or Edit person
-                            {
-                                Console.WriteLine($"These are the available {entity} to {action}: ");
-                                foreach(Chores item in _theChores)
-                                {
-                                    Console.WriteLine($"  {item.ChoreDetails()}");
-                                }
-                                Console.Write($"\nEnter the 'name' to {action}: ");
-                                string nameEntered = Console.ReadLine();
-                                
-                                foreach(Chores item in _theChores)
-                                {
-                                    if (nameEntered.ToLower() == item.GetName().ToLower())
-                                    {
-                                        if (action == "View")
-                                        {
-                                            Console.Clear();
-                                            item.DisplayChores();
-                                            action = AskToContinue(action, entity);
-                                        } 
-                                        
-                                        else if (action == "Edit")                                     // Edit person
-                                            while (action != "Return")
-                                            {                                        
-                                                Console.Clear();
-                                                item.EditChore();
-                                                action = AskToContinue(action, item.GetName());                                        
-                                            }
-                                    }                    
-                                }
-                            }
-
-                        else if (action == "Save")
-                            while (action == "Save")                                     // Save person
-                            {
-                                action = AskToContinue(action, entity);
-                            }
-
-                        else if (action == "Load") 
-                            while (action == "Load")                                  // Load person
-                            {
-                                action = AskToContinue(action, entity);
-                            }
-
-                        (entity, action) = DisplaySecondMenu(entity);                    
+                        (entity, action) = AskToContinue(entity, action);
                     }
 
-                else if (entity == "Assignments")
+                    while (action == "Load")                                  // Load person
+                    {
+                        (entity, action) = AskToContinue(entity, action);
+                    }
+
+                    if (action == "Return")
+                    {
+                        (entity, action) = DisplaySecondMenu(entity);
+                        entityOrExit = entity; 
+                    }
+                }
+
+                while (entity == "Chores")
+                {
+                    while (action == "Add")                                   // Add chore          
+                    {
+                        Console.Clear();
+                        string choreType = ChoreMenu();
+                        if (choreType == "daily")
+                        {
+                            _theChores.Add(new Daily());
+                        }
+                        else if (choreType == "somedays")
+                        {
+                            _theChores.Add(new SomeDays());
+                        }
+                        else if (choreType == "weekly")
+                        {
+                            _theChores.Add(new Weekly());
+                        }
+
+                        (entity, action) = AskToContinue(entity, action);
+                    }
+
+                    while (action == "View" || action == "Edit" )              // View and/or Edit chore 
+                    {
+                        Console.WriteLine($"These are the available {entity} to {action}: ");
+                        foreach(Chores item in _theChores)
+                        {
+                            Console.WriteLine($"  {item.ChoreDetails()}");
+                        }
+                        Console.Write($"\nEnter the 'name' to {action}: ");
+                        string nameEntered = Console.ReadLine();
+                        
+                        foreach(Chores item in _theChores)
+                        {
+                            if (nameEntered.ToLower() == item.GetName().ToLower())
+                            {
+                                while (action == "View")
+                                {
+                                    Console.Clear();
+                                    item.DisplayChores();
+                                    (entity, action) = AskToContinue(entity, action);
+                                } 
+                                
+                                while (action == "Edit")                                     // Edit person
+                                {                                        
+                                    Console.Clear();
+                                    item.EditChore();
+                                    (entity, action) = AskToContinue(entity, action);                                     
+                                }
+                            }                    
+                        }
+                        (entity, action) = DisplaySecondMenu(entity);
+                    }
+
+                    while (action == "Save")                                  // Save person
+                    {
+                        (entity, action) = AskToContinue(entity, action);
+                    }
+
+                    while (action == "Load")                                  // Load person
+                    {
+                        (entity, action) = AskToContinue(entity, action);
+                    }
+                    
+                    if (action == "Return")
+                    {
+                        (entity, action) = DisplaySecondMenu(entity);
+                        entityOrExit = entity; 
+                    }           
+                }
+
+                while (entity == "Assignments")
+                {
                     while  (action == "Add")                                // Add assignments
                     {
-                        action = AskToContinue(action, entity);
+                        (entity, action) = AskToContinue(entity, action);
                     }
                 
-                else if (entity == "Assignments" && (action == "View" || action == "Edit"))         // View and/or Edit assignments
+                    while (action == "View" || action == "Edit")            // View and/or Edit assignments
                     {
-                        action = AskToContinue(action, entity);
+                        (entity, action) = AskToContinue(entity, action);
                     }
                 
-                else if (entity == "Assignments" && action == "Save")                               // Save assignments
+                    while (action == "Save")                               // Save assignments
                     {
-                        action = AskToContinue(action, entity);
+                        (entity, action) = AskToContinue(entity, action);
                     }
                 
-                else if (entity == "Assignments" && action == "Load")                               // Load assignments
+                    while (action == "Load")                               // Load assignments
                     {
-                        action = AskToContinue(action, entity);
+                        (entity, action) = AskToContinue(entity, action);
                     }
+
+                    if (action == "Return")
+                    {
+                        (entity, action) = DisplaySecondMenu(entity);
+                        entityOrExit = entity; 
+                    }                  
+                }
+                if (entity == "Done")
+                {
+                    entityOrExit = DisplayMainMenu();
+                    (entity, action) = DisplaySecondMenu(entityOrExit);
+                };
             }
-        } 
+        
+        } while(entityOrExit != "Exit");
     }
 
     public string DisplayMainMenu()
@@ -196,60 +210,60 @@ Choose an entity:
   4. Exit
 Select a choice (1-4): ");
         string entity = Console.ReadLine();
-        if (entity == "1") {entity = "People";}
-        else if (entity == "2") {entity = "Chores";}
-        else if (entity == "3") {entity = "Assignments";}
-        else if (entity == "4") {entity = "Exit";}
-        return entity;
+        if (entity == "1") {return "People";}
+        else if (entity == "2") {return "Chores";}
+        else if (entity == "3") {return "Assignments";}
+        else if (entity == "4") {return "Exit";}
+        else return "Return";
     }
 
-    public (string entity, string action) DisplaySecondMenu(string entity)
-    {      
-        Console.Write(
+    public (string entitiyOrExit, string actionOrDone) DisplaySecondMenu(string entityOrExit)
+    {   
+        if (entityOrExit == "Exit") {return ("Exit", "Done");}
+        else 
+        {
+            Console.Write(
 @$"
-What would you like to do with {entity}:
+What would you like to do with {entityOrExit}:
   1. Add
   2. View
   3. Edit
   4. Save - not built
   5. Load - not built
-  6. Return to Previous Menu
+  6. Done with {entityOrExit}
 Select a choice (1-6): ");
         string action = Console.ReadLine();
-        if (action != "6")
-        {
-            if (action == "1") {action = "Add";}
-            else if (action == "2") {action = "View";}
-            else if (action == "3") {action = "Edit";}
-            else if (action == "4") {action = "Save";}
-            else if (action == "5") {action = "Load";}
-            
-            return (entity, action);
-        }
+        
+        if (action == "1") {return (entityOrExit, "Add");}
+        else if (action == "2") {return (entityOrExit, "View");}
+        else if (action == "3") {return (entityOrExit, "Edit");}
+        else if (action == "4") {return (entityOrExit, "Save");}
+        else if (action == "5") {return (entityOrExit, "Load");}
+        else if (action == "6") {return ("Done", "Return");}
         else 
-        {
-            return ("", "Return");
+        {return ("Done", "Return");}
         }
     }
 
-    static string AskToContinue (string action, string entity)
+    static (string entity, string action) AskToContinue (string entity, string action)
     {
-        Console.Write($"Do you want to continue to {action} {entity} (y/n)? ");
-        if (Console.ReadLine().ToLower() == "n") 
-            {return "Return";}
-        else 
-            {return action;}
+        if (entity == "Exit" || action == "Done") {return (entity, action);}
+        
+        Console.Write($"\nDo you want to continue to {action} {entity} (y/n)? ");
+        if (Console.ReadLine().ToLower() == "y") 
+            {return (entity, action);}
+        
+        return (entity, "Return");
     }
 
     public string ChoreMenu()
     {
-        Console.WriteLine(
+        Console.Write(
 @"How often will this chore need to be done? 
   1. Daily
   2. A few times weekly
   3. Once per week
-Enter an option (1-3): 
-");
+Enter an option (1-3): ");
         string choice = Console.ReadLine();
         if (choice == "1")
         {
@@ -314,5 +328,4 @@ Enter an option (1-3):
     {
 
     }
-
 }

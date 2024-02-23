@@ -39,7 +39,7 @@ public class Person
             Availability day = new Availability(i, minutes);
             newAvailable.Add(day);
         }
-        Console.WriteLine($"\nChore availability for has been set for {minutes} minutes each day.");
+        Console.WriteLine($"Chore availability for has been set for {minutes} minutes each day.\n");
         return newAvailable;
     }
 
@@ -75,13 +75,13 @@ public class Person
 
     public void EditPerson()                                        // DONE  - resets values based on new inputs
     {
-        Console.Write($"Change name for '{_name}' (y/n)? ");
+        Console.Write($"\nChange name for '{_name}' (y/n)? ");
         if (Console.ReadLine() == "y") {
             Console.Write("Enter the new name: ");
             _name = Console.ReadLine();
         }
         
-        Console.Write($"Change Date-Of-Birth from '{_dob}' (y/n)? ");
+        Console.Write($"\nChange Date-Of-Birth from '{_dob}' (y/n)? ");
         if (Console.ReadLine() == "y") {
             Console.Write("Enter the new DOB: ");
             string enteredDOB = Console.ReadLine();
@@ -89,13 +89,15 @@ public class Person
         }
 
         DisplayAvailability();
-        Console.Write("Change availability (y/n)? ");
+        Console.Write("\nChange availability (y/n)? ");
         string choice = Console.ReadLine();
 
         while (choice != "n") {
             DisplayAvailability();
             ChangeTimeMenu();
-            Console.Write("Do you want to change another day?");
+            Console.Clear();
+            DisplayAvailability();
+            Console.Write("\nDo you want to change another day? ");
             choice = Console.ReadLine();
         }
     }
