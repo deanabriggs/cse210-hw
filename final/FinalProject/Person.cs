@@ -10,9 +10,9 @@ public class Person
 
     public Person()
     {
-        Console.Write("Enter name of chore person: ");
+        Console.Write("Name of person: ");
         _name = Console.ReadLine();
-        Console.Write("Enter their birthday? ");
+        Console.Write("Birthday? ");
         _dob = DateOnly.Parse(Console.ReadLine());
         _available = addPersonsAvailableList();
     }
@@ -39,7 +39,7 @@ public class Person
             Availability day = new Availability(i, minutes);
             newAvailable.Add(day);
         }
-        Console.WriteLine($"Chore availability for has been set for {minutes} minutes each day.\n");
+        Console.WriteLine($"\nAvailability for has been set for {minutes} minutes a day.");
         return newAvailable;
     }
 
@@ -88,6 +88,7 @@ public class Person
             _dob = DateOnly.Parse(enteredDOB);
         }
 
+        Console.Clear();
         DisplayAvailability();
         Console.Write("\nChange availability (y/n)? ");
         string choice = Console.ReadLine();
@@ -115,11 +116,12 @@ public class Person
 
     public void ChangeTimeMenu()                                    // DONE
     {
-        Console.Write("Which day do you want to change (1-7): ");
+        Console.Write("\nWhich day do you want to change (1-7): ");
         int day = int.Parse(Console.ReadLine())-1;
         
         Console.Write("How much chore TIME is available that day (in minutes)? ");
         int newTime = int.Parse(Console.ReadLine());
+        Console.Clear();
 
         editPersonsAvailability(day, newTime);
     }

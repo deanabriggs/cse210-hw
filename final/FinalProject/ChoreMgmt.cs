@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Formats.Asn1;
 using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 public class ChoreMgmt
@@ -35,7 +36,6 @@ public class ChoreMgmt
                 {
                     while (action == "Add")                                   // Add person            
                     {
-                        Console.Clear();
                         _people.Add(new Person());
 
                         (entity, action) = AskToContinue(entity, action);
@@ -44,32 +44,24 @@ public class ChoreMgmt
                     while (action == "View" || action == "Edit")              // View and/or Edit person
                     {
                         Console.WriteLine($"These are the available {entity} to {action}: ");
-                        foreach(Person item in _people)
-                        {
-                            Console.WriteLine($"  {item.GetName()}");
-                        }
-                        Console.Write($"\nEnter the 'name' to {action}: ");
-                        string nameEntered = Console.ReadLine();
+                        DisplayPeople();
+
+                        Console.Write($"\nEnter the 'number' to {action}: ");  // Choose person
+                        int index = int.Parse(Console.ReadLine())-1;
+                        Person thePerson = _people[index];
+
+                        thePerson.DisplayAvailability();                       
                         
-                        foreach(Person item in _people)
+                        while (action == "View")                                // View
                         {
-                            if (nameEntered.ToLower() == item.GetName().ToLower())
-                            {
-                                while (action == "View")
-                                {
-                                    Console.Clear();
-                                    item.DisplayAvailability();
-                                    (entity, action) = AskToContinue(entity, action);
-                                } 
-                                
-                                while (action == "Edit")                                     // Edit person
-                                {                                        
-                                    Console.Clear();
-                                    item.EditPerson();
-                                    (entity, action) = AskToContinue(entity, action);                                       
-                                }
-                            }                  
-                        }
+                            (entity, action) = AskToContinue(entity, action);
+                        } 
+                        while (action == "Edit")                                // Edit
+                        { 
+                            thePerson.EditPerson();
+                            (entity, action) = AskToContinue(entity, action);
+                        }                                                 
+                        
                         (entity, action) = DisplaySecondMenu(entity);
                     }
 
@@ -202,19 +194,35 @@ public class ChoreMgmt
     public string DisplayMainMenu()
     {
         Console.Write(
-@"
+@"                         CHORE ASSIGNMENT PROGRAM
+                        Managing Your Family Chores
+                        
 Choose an entity:
   1. People
   2. Chores
-  3. Assignments - not built
+  3. --Assignments--
   4. Exit
+
 Select a choice (1-4): ");
         string entity = Console.ReadLine();
-        if (entity == "1") {return "People";}
-        else if (entity == "2") {return "Chores";}
-        else if (entity == "3") {return "Assignments";}
-        else if (entity == "4") {return "Exit";}
-        else return "Return";
+        Console.Clear();
+        if (entity == "1") 
+        {
+            return "People";
+        }
+        else if (entity == "2") 
+        {
+            return "Chores";
+        }
+        else if (entity == "3") 
+        {
+            return "Assignments";
+        }
+        else if (entity == "4") 
+        {
+            return "Exit";
+        }
+        else return "Exit";
     }
 
     public (string entitiyOrExit, string actionOrDone) DisplaySecondMenu(string entityOrExit)
@@ -223,36 +231,66 @@ Select a choice (1-4): ");
         else 
         {
             Console.Write(
-@$"
-What would you like to do with {entityOrExit}:
+@$"                         CHORE ASSIGNMENT PROGRAM
+                        Managing Your Family Chores
+
+What would you like to do with {entityOrExit.ToUpper()}:
   1. Add
   2. View
   3. Edit
-  4. Save - not built
-  5. Load - not built
+  4. --Save--
+  5. --Load--
   6. Done with {entityOrExit}
+
 Select a choice (1-6): ");
-        string action = Console.ReadLine();
-        
-        if (action == "1") {return (entityOrExit, "Add");}
-        else if (action == "2") {return (entityOrExit, "View");}
-        else if (action == "3") {return (entityOrExit, "Edit");}
-        else if (action == "4") {return (entityOrExit, "Save");}
-        else if (action == "5") {return (entityOrExit, "Load");}
-        else if (action == "6") {return ("Done", "Return");}
-        else 
-        {return ("Done", "Return");}
+            string action = Console.ReadLine();
+            Console.Clear();
+            
+            if (action == "1") 
+            {
+                return (entityOrExit, "Add");
+            }
+            else if (action == "2") 
+            {
+                return (entityOrExit, "View");
+            }
+            else if (action == "3") 
+            {
+                return (entityOrExit, "Edit");
+            }
+            else if (action == "4") 
+            {
+                return (entityOrExit, "Save");
+            }
+            else if (action == "5") 
+            {
+                return (entityOrExit, "Load");
+            }
+            else if (action == "6") 
+            {
+                return ("Done", "Return");
+            }
+            else 
+            {
+                return ("Done", "Return");
+            }
         }
     }
 
     static (string entity, string action) AskToContinue (string entity, string action)
     {
-        if (entity == "Exit" || action == "Done") {return (entity, action);}
+        if (entity == "Exit" || action == "Done") 
+        {
+            return (entity, action);
+        }
         
-        Console.Write($"\nDo you want to continue to {action} {entity} (y/n)? ");
-        if (Console.ReadLine().ToLower() == "y") 
-            {return (entity, action);}
-        
+        Console.Write($"\nDo you want to continue to {action.ToUpper()} {entity} (y/n)? ");
+        string choice = Console.ReadLine().ToLower();
+        Console.Clear();
+        if (choice == "y")
+        {
+            return (entity, action);
+        }
         return (entity, "Return");
     }
 
@@ -286,12 +324,22 @@ Enter an option (1-3): ");
 
     public void DisplayPeople()
     {
-
+        int i = 0;
+        foreach(Person item in _people)
+        {
+            i++;
+            Console.WriteLine($"  {i}. {item.GetName()}");
+        }
     }
 
     public void DisplayChores()
     {
-
+        int i = 0;
+        foreach(Chores item in _theChores)
+        {
+            i++;
+            Console.WriteLine($"  {i}. {item.GetName()}");
+        }
     }
 
     public void DisplayAssign()

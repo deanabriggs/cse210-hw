@@ -13,6 +13,7 @@ public abstract class Chores
 
     protected Chores()
     {
+        Console.Clear();
         Console.Write("NAME of chore: ");
         _choreName = Console.ReadLine();
 
@@ -129,6 +130,11 @@ public abstract class Chores
         _minAge = 0;
         _everyone = false;
         _numOfPeople = 0;
+    }
+
+    public virtual void DisplayChore()
+    {
+        Console.WriteLine($"{_choreName} - {_time} min");
     }
 
     public virtual void SaveChores()
