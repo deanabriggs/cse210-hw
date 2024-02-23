@@ -99,7 +99,7 @@ public abstract class Chores
         }
 
 
-        Console.Write("Should EVERYONE individually do this chore? (y/n)");
+        Console.Write("Should EVERYONE individually do this chore (y/n)? ");
         if (Console.ReadLine().ToLower() == "y")
             {
                 _everyone = true;
@@ -108,7 +108,7 @@ public abstract class Chores
         else 
             {
                 _everyone = false;
-                Console.Write("Should this be worked by MORE THAN 1 person at a time? (y/n)");
+                Console.Write("Should this be worked by MORE THAN 1 person at a time (y/n)? ");
                     if (Console.ReadLine().ToLower() == "n")
                         {
                             _numOfPeople = 1;

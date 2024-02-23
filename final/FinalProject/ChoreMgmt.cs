@@ -49,19 +49,21 @@ public class ChoreMgmt
                         Console.Write($"\nEnter the 'number' to {action}: ");  // Choose person
                         int index = int.Parse(Console.ReadLine())-1;
                         Person thePerson = _people[index];
-
-                        thePerson.DisplayAvailability();                       
                         
-                        while (action == "View")                                // View
+                        while (action == "View")
                         {
-                            (entity, action) = AskToContinue(entity, action);
-                        } 
+                            thePerson.DisplayAvailability();
+                            action = "";
+                            (entity, action) = AskToContinue(entity, action); 
+                        }
+                         
                         while (action == "Edit")                                // Edit
-                        { 
+                        {                              
+                            thePerson.DisplayAvailability(); 
                             thePerson.EditPerson();
                             (entity, action) = AskToContinue(entity, action);
                         }                                                 
-                        
+                    
                         (entity, action) = DisplaySecondMenu(entity);
                     }
 
@@ -84,7 +86,7 @@ public class ChoreMgmt
 
                 while (entity == "Chores")
                 {
-                    while (action == "Add")                                   // Add chore          
+                    while (action == "Add")                                   // Add Chore          
                     {
                         Console.Clear();
                         string choreType = ChoreMenu();
@@ -104,44 +106,38 @@ public class ChoreMgmt
                         (entity, action) = AskToContinue(entity, action);
                     }
 
-                    while (action == "View" || action == "Edit" )              // View and/or Edit chore 
+                    while (action == "View" || action == "Edit" )              // View and/or Edit Chore
                     {
                         Console.WriteLine($"These are the available {entity} to {action}: ");
-                        foreach(Chores item in _theChores)
+                        DisplayChores();
+
+                        Console.Write($"\nEnter the 'number' to {action}: ");  // Choose Chore
+                        int index = int.Parse(Console.ReadLine())-1;
+                        Chores theChore = _theChores[index];
+
+                        while (action == "View")
                         {
-                            Console.WriteLine($"  {item.ChoreDetails()}");
+                            theChore.ChoreDetails();
+                            action = "";
+                            (entity, action) = AskToContinue(entity, action); 
                         }
-                        Console.Write($"\nEnter the 'name' to {action}: ");
-                        string nameEntered = Console.ReadLine();
                         
-                        foreach(Chores item in _theChores)
+                        while (action == "Edit")
                         {
-                            if (nameEntered.ToLower() == item.GetName().ToLower())
-                            {
-                                while (action == "View")
-                                {
-                                    Console.Clear();
-                                    item.DisplayChores();
-                                    (entity, action) = AskToContinue(entity, action);
-                                } 
-                                
-                                while (action == "Edit")                                     // Edit person
-                                {                                        
-                                    Console.Clear();
-                                    item.EditChore();
-                                    (entity, action) = AskToContinue(entity, action);                                     
-                                }
-                            }                    
+                            theChore.ChoreDetails();
+                            theChore.EditChore();
+                            (entity, action) = AskToContinue(entity, action); 
                         }
+
                         (entity, action) = DisplaySecondMenu(entity);
                     }
 
-                    while (action == "Save")                                  // Save person
+                    while (action == "Save")                                  // Save Chore
                     {
                         (entity, action) = AskToContinue(entity, action);
                     }
 
-                    while (action == "Load")                                  // Load person
+                    while (action == "Load")                                  // Load Chore
                     {
                         (entity, action) = AskToContinue(entity, action);
                     }
