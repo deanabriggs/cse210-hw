@@ -12,7 +12,7 @@ public class Person
     {
         Console.Write("Name of person: ");
         _name = Console.ReadLine();
-        Console.Write("Birthday? ");
+        Console.Write("Birthday: ");
         _dob = DateOnly.Parse(Console.ReadLine());
         _available = addPersonsAvailableList();
     }
@@ -39,7 +39,7 @@ public class Person
             Availability day = new Availability(i, minutes);
             newAvailable.Add(day);
         }
-        Console.WriteLine($"\nAvailability for has been set for {minutes} minutes a day.");
+        Console.WriteLine($"Availability for has been set for {minutes} minutes a day.");
         return newAvailable;
     }
 
@@ -81,7 +81,7 @@ public class Person
             _name = Console.ReadLine();
         }
         
-        Console.Write($"\nChange Date-Of-Birth from '{_dob}' (y/n)? ");
+        Console.Write($"Change Date-Of-Birth from '{_dob}' (y/n)? ");
         if (Console.ReadLine() == "y") {
             Console.Write("Enter the new DOB: ");
             string enteredDOB = Console.ReadLine();
@@ -91,15 +91,19 @@ public class Person
         Console.Clear();
         DisplayAvailability();
         Console.Write("\nChange availability (y/n)? ");
-        string choice = Console.ReadLine();
+        string choice = Console.ReadLine().ToLower();   
+        Console.Clear();   
 
-        while (choice != "n") {
+        while (choice == "y") {           
             DisplayAvailability();
             ChangeTimeMenu();
+            
             Console.Clear();
             DisplayAvailability();
             Console.Write("\nDo you want to change another day? ");
             choice = Console.ReadLine();
+            
+            Console.Clear();
         }
     }
 
@@ -128,13 +132,12 @@ public class Person
       
     public void SavePerson()
     {
-
+        
+        Console.WriteLine("The list of PEOPLE have been saved to people.txt");
     }
 
     public void LoadPerson()
-    {
-        
-    }
+    {}
 
     // public void GetDateAvailability(DateOnly start, DateOnly end){}  // will need to edited to return correct info
 }

@@ -22,10 +22,9 @@ public class Weekly : Chores
     {
         return base.DisplayChores() + $" | on {(DayOfWeek)_day}";
     }
-
-    public override string StringRepresentation()
+public override string StringRepresentation()
     {
-        return $"Daily:{_choreName}|{_description}|{_time}|{_minAge}|{_everyone}|{_numOfPeople}|{_day}";
+        return $"SomeDays{base.StringRepresentation()}|{_day}";
     }
 
     public int MenuWeekdayValue()
@@ -47,5 +46,9 @@ Enter option (1-7): ");
         return choice;
     }
 
+    public override void SaveChores()
+    {}
+    public override void LoadChores()
+    {}
 
 }

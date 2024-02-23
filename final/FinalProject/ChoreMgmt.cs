@@ -10,6 +10,8 @@ public class ChoreMgmt
     private List<Chores> _theChores;
     private List<Assign> _assignments;
 
+    private List<string> _entityTitles;   // Helps to iterate through the menus
+
     public ChoreMgmt() 
     {
         _people = new List<Person>();

@@ -4,12 +4,12 @@ using System.Runtime;
 
 public abstract class Chores
 {
-    protected string _choreName;
-    protected string _description;
-    protected int _time;
-    protected int _minAge;
-    protected bool _everyone;
-    protected int _numOfPeople;
+    private string _choreName;
+    private string _description;
+    private int _time;
+    private int _minAge;
+    private bool _everyone;
+    private int _numOfPeople;
 
     protected Chores()
     {
@@ -59,7 +59,7 @@ public abstract class Chores
     }
 
     public abstract string ChoreDetails();
-    public abstract string StringRepresentation();
+
     public string GetName()                         // DONE
     {
         return _choreName;
@@ -122,14 +122,9 @@ public abstract class Chores
 
     }
 
-    public virtual void DeleteChore()
+    public virtual string StringRepresentation()
     {
-        _choreName = "";
-        _description = "";
-        _time = 0;
-        _minAge = 0;
-        _everyone = false;
-        _numOfPeople = 0;
+        return $"Chores:{_choreName}|{_description}|{_time}|{_minAge}|{_everyone}|{_numOfPeople}";
     }
 
     public virtual void DisplayChore()
@@ -137,9 +132,7 @@ public abstract class Chores
         Console.WriteLine($"{_choreName} - {_time} min");
     }
 
-    public virtual void SaveChores()
-    {}
-    public virtual void LoadChores()
-    {}
+    public abstract void SaveChores();
+    public abstract void LoadChores();
 
 }

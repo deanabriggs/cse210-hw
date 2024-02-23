@@ -23,6 +23,10 @@ public class Daily : Chores
 
     public override string StringRepresentation()
     {
-        return $"Daily:{_choreName}|{_description}|{_time}|{_minAge}|{_everyone}|{_numOfPeople}|{_am}";
+        return $"Daily{base.StringRepresentation()}|{_am}";
     }
+    public override void SaveChores()
+    {}
+    public override void LoadChores()
+    {}
 }
