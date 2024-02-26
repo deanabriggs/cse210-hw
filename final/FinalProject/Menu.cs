@@ -4,6 +4,8 @@ using System.Xml.Serialization;
 
 public class Menus
 {
+    private List<DateOnly> _selectedDates;
+    private List<ChoreByDate> _choreByDate;
     private List<Entities> _entities;
     private List<string> _entityNames;
     private List<string> _actions;
@@ -12,8 +14,11 @@ public class Menus
     private string _currentEntity;
     private string _currentAction;
 
+   
     public Menus()
     {
+        _selectedDates = default;
+        _choreByDate = new List<ChoreByDate>();
         _entities = new List<Entities>();
         _entityNames = new List<string> {"People", "Chores", "Assignments", "Exit"};    // LAST list item will exit program
         _actions = new List<string> {"Add", "View", "Edit", "Quit"};                    // LAST list item will quit action
@@ -23,17 +28,35 @@ public class Menus
         _currentAction = "";
     }
 
+    public List<DateOnly> GetDatesForRange ()
+    {
+        Console.WriteLine("Enter the DATE RANGE you want to manage");
+        Console.Write("Enter Start Date: ");
+        DateOnly startDate = DateOnly.Parse(Console.ReadLine());
+        Console.Write("Enter End Date: ");
+        DateOnly endDate = DateOnly.Parse(Console.ReadLine());
+        
+        List<DateOnly> theseDates = new List<DateOnly>();
+        while (startDate < endDate)
+        {
+            startDate = startDate.AddDays(1);
+            theseDates.Add(startDate);
+        }
+        Console.Clear();
+        return theseDates;
+    }
+
     public void RunProgram()
     {
         new Menus();
         new Entities();
+        DisplayHeader();
+        _selectedDates = GetDatesForRange();
         int exitEntity = _entityNamesLen;
         int quitAction = _actionsLen;
         while (_currentEntity == "" || _currentEntity != _entityNames[exitEntity])
         {
-            DisplayHeader();
             DisplayEntityChoiceMenu();
-
             bool continueEntity;
             do 
             { 
@@ -47,7 +70,6 @@ public class Menus
                     continueAction = DisplayActionContinueMenu(_currentEntity, _currentAction);
                 } while (continueAction == true);
                 _currentAction = _actions[quitAction];
-
                 continueEntity = DisplayEntityContinueMenu(_currentEntity);
 
             } while (continueEntity == true);

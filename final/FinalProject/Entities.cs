@@ -9,34 +9,12 @@ public class Entities
     private List<Person> _people;
     private List<Chore> _theChores;
     private List<Assignment> _assignments;
-    private List<DateOnly> _selectedDates;
-    private List<ChoreByDate> _choreByDate;
-
 
     public Entities() 
     {
         _people = new List<Person>();
         _theChores = new List<Chore>();
         _assignments = new List<Assignment>();
-        _selectedDates = GetDatesForRange();
-        _choreByDate = new List<ChoreByDate>();
-    }
-
-    public List<DateOnly> GetDatesForRange ()
-    {
-        Console.WriteLine("Enter the DATE RANGE you want to manage");
-        Console.Write("Enter Start Date: ");
-        DateOnly startDate = DateOnly.Parse(Console.ReadLine());
-        Console.Write("Enter End Date: ");
-        DateOnly endDate = DateOnly.Parse(Console.ReadLine());
-        
-        List<DateOnly> datesInRange = new List<DateOnly>();
-        while (startDate < endDate)
-        {
-            startDate = startDate.AddDays(1);
-            _selectedDates.Add(startDate);
-        }
-        return datesInRange;
     }
 
     public void AddNewPerson()
