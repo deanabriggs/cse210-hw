@@ -1,32 +1,42 @@
+using System.ComponentModel;
 using System.Security.Cryptography;
 
-public class Daily : Chores
+public class Daily : Chore
 {
     private bool _am;
 
     public Daily() : base()
     {
-        Console.Write("Does this chore have to be done in the morning? (y/n): ");
-        if (Console.ReadLine().ToLower() == "y")
-        {_am = true;}
-        else {_am = false;}
-    }
-    public Daily(string name, string desc, int time, int age, bool everyone=false, int people=1) : base(name, desc, time, age, everyone, people)
-    {
-        _am = false;
+        Console.Write("\nDoes this chore have to be done in the morning? (y/n): ");
+        if (Console.ReadLine().ToLower() == "y") _am = true;
+        else _am = false;
     }
 
-    public override string ChoreDetails()
+    public Daily(string name, string desc, int time, int age, bool everyone, int people, bool am) : base(name, desc, time, age, everyone, people)
     {
-        return "";
+        _am = am;
     }
 
-    public override string StringRepresentation()
+    public override void EditChore()                        // DONE
+    {
+        base.EditChore();
+        Console.Write("\nDoes this chore have to be done in the morning? (y/n): ");
+        if (Console.ReadLine().ToLower() == "y") _am = true;
+        else _am = false;
+    }
+
+    public override void DisplayChoreDetails()              // DONE
+    {
+        string morning;
+        if (_am == true) morning = " | in the morning";
+        else morning = "";
+
+        base.DisplayChoreDetails();
+        Console.Write(morning);
+    }
+
+    public override string StringRepresentation()           // DONE
     {
         return $"Daily{base.StringRepresentation()}|{_am}";
     }
-    public override void SaveChores()
-    {}
-    public override void LoadChores()
-    {}
 }

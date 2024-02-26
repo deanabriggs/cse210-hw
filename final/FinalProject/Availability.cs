@@ -13,6 +13,11 @@ public class Availability
         _availableTime = time;
     }
 
+    public (int day, int time) GetDayTimeAvailable()
+    {
+        return (_day, _availableTime);
+    }
+
     public int GetDay()
     {
         return _day;

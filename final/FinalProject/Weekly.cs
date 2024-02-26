@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 
-public class Weekly : Chores
+public class Weekly : Chore
 {
     private int _day;
 
@@ -8,47 +8,43 @@ public class Weekly : Chores
     {
         _day = MenuWeekdayValue();
     }
-    public Weekly(string name, string desc, int time, int age, int day, bool everyone, int people) : base(name, desc, time, age, everyone, people)
+
+    public Weekly(string name, string desc, int time, int age, bool everyone, int people, int day) : base(name, desc, time, age, everyone, people)
     {
         _day = day;
     }
 
-    public override string ChoreDetails()
+    public override void EditChore()                            // DONE
     {
-        return "";
+        base.EditChore();
+        _day = MenuWeekdayValue();
     }
 
-    public override string DisplayChores()
+    public override void DisplayChoreDetails()                  // DONE
     {
-        return base.DisplayChores() + $" | on {(DayOfWeek)_day}";
+        base.DisplayChoreDetails(); 
+        Console.WriteLine($" | on {GetDayNameAbb(_day)}");
     }
-public override string StringRepresentation()
+    
+    public override string StringRepresentation()               // DONE
     {
-        return $"SomeDays{base.StringRepresentation()}|{_day}";
+        return $"Weekly{base.StringRepresentation()}|{_day}";
     }
 
-    public int MenuWeekdayValue()
+    private int MenuWeekdayValue()                              // DONE
     {
-Console.WriteLine(
+        Console.WriteLine(
 @"What day should this be worked? 
-  1. Monday
-  2. Tuesday
-  3. Wednesday
-  4. Thursday
-  5. Friday
-  6. Saturday
-  7. Sunday
+  1. Sunday
+  2. Monday
+  3. Tuesday
+  4. Wednesday
+  5. Thursday
+  6. Friday
+  7. Saturday
 Enter option (1-7): ");
-        int choice = int.Parse(Console.ReadLine());
-        if (choice == 7) {_day = 0;}
-        else {_day = choice;}
+        int choice = int.Parse(Console.ReadLine())-1;
 
         return choice;
     }
-
-    public override void SaveChores()
-    {}
-    public override void LoadChores()
-    {}
-
 }

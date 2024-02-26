@@ -1,71 +1,75 @@
+using System.Globalization;
 using System.Security.Cryptography;
 
-public class SomeDays : Chores
+public class SomeDays : Chore
 {
     private List<int> _days;
 
     public SomeDays() : base()
     {
         Console.Write("Will this be for week days only? (y/n): ");
-        if(Console.ReadLine().ToLower() == "y")
-            DefineWeekDays();
+        if (Console.ReadLine().ToLower() == "y")
+            _days = DefineWeekDays();
         else
-            DefineSomeDays();
+            _days = DefineSomeDays();
     }
 
-    SomeDays(string name, string desc, int time, int age, List<int> days, bool everyone, int people) : base(name, desc, time, age, everyone, people)
+    public SomeDays(string name, string desc, int time, int age, bool everyone, int people, List<int> days) : base(name, desc, time, age, everyone, people)
     {
         _days = days;
     }
 
-    public override string ChoreDetails()
+    public override void EditChore()                    // DONE
     {
-        return "";
+        base.EditChore();
+        Console.Write("Change days this chore needs to be done? (y/n): ");
+        if (Console.ReadLine().ToLower() == "y")
+        {
+            Console.Write("Will this be for week days only? (y/n): ");
+            if (Console.ReadLine().ToLower() == "y")
+                _days = DefineWeekDays();
+            else
+                _days = DefineSomeDays();
+        }
     }
 
-    public override string StringRepresentation()
+    public override void DisplayChoreDetails()          // DONE
     {
-        return $"SomeDays{base.StringRepresentation()}|{_days}";
+        base.DisplayChoreDetails();
+        Console.Write($" | {GetDayListAsString(_days)}");        
     }
 
-    static List<int> DefineWeekDays()
+    public override string StringRepresentation()       // DONE
+    {
+        return $"SomeDays{base.StringRepresentation()}|{GetDayListAsString(_days)}";
+    }
+
+    private List<int> DefineWeekDays()                  // DONE
     {
         List<int> dayList = new List<int>() {1, 2, 3, 4, 5};
         return dayList;
     }
 
-    static List<int> DefineSomeDays()
+    private List<int> DefineSomeDays()                  // DONE
     {
         List<int> dayList = new List<int>();
         Console.WriteLine("Select the days for this chore: ");
-        Console.Write("  Monday    (y/n): ");
-        string m = Console.ReadLine().ToLower();
-        Console.Write("  Tuesday   (y/n): ");
-        string t = Console.ReadLine().ToLower();
-        Console.Write("  Wednesday (y/n): ");
-        string w = Console.ReadLine().ToLower();
-        Console.Write("  Thursday  (y/n): ");
-        string th = Console.ReadLine().ToLower();
-        Console.Write("  Friday    (y/n): ");
-        string f = Console.ReadLine().ToLower();
-        Console.Write("  Saturday  (y/n): ");
-        string sat = Console.ReadLine().ToLower();
         Console.Write("  Sunday    (y/n): ");
-        string sun = Console.ReadLine().ToLower();
-
-        if (m == "y") dayList.Add(1);
-        if (t == "y") dayList.Add(2);
-        if (w == "y") dayList.Add(3);
-        if (th == "y") dayList.Add(4);
-        if (f == "y") dayList.Add(5);
-        if (sat == "y") dayList.Add(6);
-        if (sun == "y") dayList.Add(0);
+        if (Console.ReadLine().ToLower() == "y") dayList.Add(0);
+        Console.Write("  Monday    (y/n): ");
+        if (Console.ReadLine().ToLower() == "y") dayList.Add(1);
+        Console.Write("  Tuesday   (y/n): ");
+        if (Console.ReadLine().ToLower() == "y") dayList.Add(2);
+        Console.Write("  Wednesday (y/n): ");
+        if (Console.ReadLine().ToLower() == "y") dayList.Add(3);
+        Console.Write("  Thursday  (y/n): ");
+        if (Console.ReadLine().ToLower() == "y") dayList.Add(4);
+        Console.Write("  Friday    (y/n): ");
+        if (Console.ReadLine().ToLower() == "y") dayList.Add(5);
+        Console.Write("  Saturday  (y/n): ");       
+        if (Console.ReadLine().ToLower() == "y") dayList.Add(6);
 
         return dayList;
     }
 
-    public override void SaveChores()
-    {}
-    public override void LoadChores()
-    {}
 }

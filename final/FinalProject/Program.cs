@@ -5,7 +5,7 @@ class Program
     static void Main(string[] args)
     {
         Console.Clear();
-        ChoreMgmt begin = new ChoreMgmt();
+        Menus begin = new Menus();
         begin.RunProgram();
     }
 }

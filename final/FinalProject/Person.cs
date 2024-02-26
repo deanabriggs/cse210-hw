@@ -16,17 +16,24 @@ public class Person
         _dob = DateOnly.Parse(Console.ReadLine());
         _available = addPersonsAvailableList();
     }
+
     public Person(string name, DateOnly DOB)
     {
         _name = name;
         _dob = DOB;
         _available = addPersonsAvailableList();
     }
+
     public Person(string name, DateOnly DOB, List<Availability> available)
     {
         _name = name;
         _dob = DOB;
         _available = available;
+    }
+
+    public (string name, DateOnly DOB, List<Availability> available) GetPersonAndAvailability()
+    {
+        return (_name, _dob, _available);
     }
 
     static List<Availability> addPersonsAvailableList()     // DONE  - helps create a new object
@@ -60,19 +67,16 @@ public class Person
         return $"Person:{_name}|{_dob}|{_available}";
     }
 
-
     public string GetName()                                         // DONE
     {
         return _name;
     }
-    
-    public void DeletePerson()                                      // DONE
-    {
-        _name = null;
-        _dob = default;
-        _available = null;
-    }
 
+    public DateOnly GetDOB()
+    {
+        return _dob;
+    }
+    
     public void EditPerson()                                        // DONE  - resets values based on new inputs
     {
         Console.Write($"\nChange name for '{_name}' (y/n)? ");
@@ -130,14 +134,6 @@ public class Person
         editPersonsAvailability(day, newTime);
     }
       
-    public void SavePerson()
-    {
-        
-        Console.WriteLine("The list of PEOPLE have been saved to people.txt");
-    }
-
-    public void LoadPerson()
-    {}
 
     // public void GetDateAvailability(DateOnly start, DateOnly end){}  // will need to edited to return correct info
 }

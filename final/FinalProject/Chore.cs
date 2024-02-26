@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Runtime;
 
-public abstract class Chores
+public abstract class Chore
 {
     private string _choreName;
     private string _description;
@@ -11,7 +11,7 @@ public abstract class Chores
     private bool _everyone;
     private int _numOfPeople;
 
-    protected Chores()
+    public Chore()
     {
         Console.Clear();
         Console.Write("NAME of chore: ");
@@ -47,9 +47,9 @@ public abstract class Chores
                         }
             }
     }
-    public Chores(string name, string desc, int time, int age, bool everyone=false, int people=1)
+    
+    public Chore(string name, string desc, int time, int age, bool everyone=false, int people=1)
     {
-        Console.Write("Enter chore name: ");
         _choreName = name;
         _description = desc;
         _time = time;
@@ -57,19 +57,26 @@ public abstract class Chores
         _everyone = everyone;
         _numOfPeople = people;
     }
-
-    public abstract string ChoreDetails();
-
-    public string GetName()                         // DONE
+    
+    public virtual (string name, string desc, int time, int age, bool everyone, int people) GetChoreDetails()
     {
-        return _choreName;
+        return (_choreName, _description, _time, _minAge, _everyone, _numOfPeople);
     }
 
-    public virtual string DisplayChores()           // DONE
+    public void DisplayChoreName()                  // DONE
+    {
+        Console.Write($"{_choreName} - {_time} min");
+    }
+    
+    public virtual void DisplayChoreDetails()       // DONE
     {
         string mark = "";
-        if (_everyone == true) {mark = "*";}
-        return $"{mark}{_choreName}: {_description} | {_time} min | by {_numOfPeople} - {_minAge} years old";
+        if (_everyone == true) mark = "*";
+        
+        string pronoun = "person";
+        if (_numOfPeople > 1) pronoun = "people";
+
+        Console.Write($"{mark}{_choreName}: {_description} | {_time} min | by {_numOfPeople} {pronoun} | {_minAge} years old");
     }
 
     public virtual void EditChore()                 // DONE
@@ -98,7 +105,6 @@ public abstract class Chores
             _minAge = int.Parse(Console.ReadLine());
         }
 
-
         Console.Write("Should EVERYONE individually do this chore (y/n)? ");
         if (Console.ReadLine().ToLower() == "y")
             {
@@ -122,17 +128,21 @@ public abstract class Chores
 
     }
 
-    public virtual string StringRepresentation()
+    public virtual string StringRepresentation()    // DONE
     {
         return $"Chores:{_choreName}|{_description}|{_time}|{_minAge}|{_everyone}|{_numOfPeople}";
     }
 
-    public virtual void DisplayChore()
+    public string GetDayListAsString(List<int> days)
     {
-        Console.WriteLine($"{_choreName} - {_time} min");
+        List<string> daysOfWeek = days.Select(day => GetDayNameAbb(day)).ToList();
+        string result = string.Join(", ", daysOfWeek);
+        return result;
     }
 
-    public abstract void SaveChores();
-    public abstract void LoadChores();
-
+    public string GetDayNameAbb(int number)
+    {
+        DayOfWeek dayOfWeek = (DayOfWeek)(number % 7);
+        return dayOfWeek.ToString("ddd");
+    }
 }
